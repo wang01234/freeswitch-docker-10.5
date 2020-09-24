@@ -1,0 +1,14 @@
+<configuration name="ali_tts.conf" description="Aliyun TextToSpeech Configuration">
+  <settings>
+    <!-- * tts 模块启动的线程数量，随着客户量增加可以调整优化 -->
+    <param name="thread_count" value="10" />
+    <!-- tts 缓存语音的大小 -->
+    <param name="cache_size" value="1024m" />
+    <!-- 阿里云TTS 配置的账号信息，全局作用 -->
+<!--    <param name="app_key" value="3NAtG0sc3dSZ" />-->
+<!--    <param name="access_key" value="LTAIdhCtJt" />-->
+<!--    <param name="key_secret" value="zu2iYaMLOm1eargpedN" />-->
+    <!-- 缓存TTS生成的文件路径 -->
+    <param name="cache_path" value="/usr/local/freeswitch/storage/tts" />
+  </settings>
+</configuration>

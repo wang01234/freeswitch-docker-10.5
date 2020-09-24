@@ -1,0 +1,64 @@
+---
+version: '2.2'
+
+services:
+  rabbitmq:
+    image: webitel/amqp
+    container_name: rabbitmq
+    ports:
+      - "172.17.0.1:15672:15672"
+      - "172.17.0.1:5672:5672"
+    environment:
+      - "RABBITMQ_DEFAULT_USER=webitel"
+      - "RABBITMQ_DEFAULT_PASS=webitel"
+      - "RABBITMQ_NODENAME=node@rabbitmq"
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    networks:
+      - wtel
+  postgres:
+    image: postgres:10.5-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      - "POSTGRES_DB=webitel"
+      - "POSTGRES_USER=webitel"
+      - "POSTGRES_PASSWORD=webitel"
+    ports:
+      - "172.17.0.1:5432:5432"
+#    volumes:
+#      - "${WEBITEL_DIR}/pgsql:/var/lib/postgresql/data"
+    networks:
+      - wtel
+#  freeswitch:
+#    image: "webitel/freeswitch:${WEBITEL_VERSION}"
+#    container_name: freeswitch
+#    restart: always
+#    privileged: true
+#    network_mode: "host"
+#    ulimits:
+#      nproc: -1
+#      memlock: -1
+#      nofile: 65536
+#    env_file: "${DIR}/env/freeswitch"
+#    volumes:
+#      - fs-sounds:/sounds
+#      - fs-data:/recordings
+#      - "${WEBITEL_DIR}/ssl:/certs"
+#      - "${WEBITEL_DIR}/lua:/scripts/lua"
+#      - "${DIR}/env/drop-sip-uac:/drop-sip-uac:rw"
+#      - "${DIR}/env/drop-from-ip:/drop-from-ip:rw"
+#      - "${DIR}/env/allow-from-ip:/allow-from-ip:rw"
+#      - "${WEBITEL_DIR}/fs_conf:/conf"
+#    depends_on:
+#      - rabbitmq
+#      - postgres
+
+volumes:
+  rabbitmq:
+  fs-sounds:
+  fs-data:
+
+networks:
+  wtel:
+    driver: bridge
